@@ -1,0 +1,27 @@
+# Ignore cache directories
+cache/
+.cache/
+
+# Ignore Python bytecode
+__pycache__/
+*.py[cod]
+
+# Ignore databases and logs
+*.db
+*.log
+
+# Ignore environment files and folders
+.env
+envs/
+dis_envs/
+
+# Ignore PDF files
+*.pdf
+
+# Ignore notebooks and JSON files
+notebooks/
+*.json
+
+# Ignore project-specific files
+Jenkinsfile
+README.me
