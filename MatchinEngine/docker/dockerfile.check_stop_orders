@@ -1,0 +1,17 @@
+FROM python:3.10
+
+WORKDIR /app
+
+ENV PYTHONPATH=/app:$PYTHONPATH
+
+COPY docker/requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy Core files
+COPY Core/general.py Core/logger.py /app/Core/
+
+# Copy producer files
+COPY producers/check_stop_orders.py /app/producers/
+
+CMD ["python", "producers/check_stop_orders.py"]

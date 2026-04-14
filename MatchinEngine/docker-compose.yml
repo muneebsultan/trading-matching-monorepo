@@ -1,0 +1,67 @@
+services:
+  user-action-consumer:
+    build: 
+      context: .
+      dockerfile: docker/dockerfile.user_consumer
+    volumes:
+      - .:/app
+    restart: always
+    env_file:
+      - .env
+
+  limit-order-consumer:
+    build: 
+      context: .
+      dockerfile: docker/dockerfile.limit_orders_consumer
+    volumes:
+      - .:/app
+    restart: always
+    env_file:
+      - .env
+
+  stop-order-consumer:
+    build: 
+      context: .
+      dockerfile: docker/dockerfile.stop_orders_consumer
+    volumes:
+      - .:/app
+    restart: always
+    env_file:
+      - .env
+
+  check-limit-order-consumer:
+    build: 
+      context: .
+      dockerfile: docker/dockerfile.check_limits_orders
+    volumes:
+      - .:/app
+    restart: always
+    env_file:
+      - .env
+
+  check-liquidation-order-consumer:
+    build: 
+      context: .
+      dockerfile: docker/dockerfile.check_liquidations_orders
+    volumes:
+      - .:/app
+    restart: always
+    env_file:
+      - .env
+      
+  check-stop-order-consumer:
+    build: 
+      context: .
+      dockerfile: docker/dockerfile.check_stop_orders
+    volumes:
+      - .:/app
+    restart: always
+    env_file:
+      - .env
+
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://40.76.249.70:3100/loki/api/v1/push"
+
+

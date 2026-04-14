@@ -1,0 +1,17 @@
+FROM python:3.10
+
+WORKDIR /app
+
+ENV PYTHONPATH=/app:$PYTHONPATH
+
+COPY docker/requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy Core files
+COPY Core/general.py Core/logger.py /app/Core/
+
+# Copy producer files
+COPY consumers/limit_orders.py /app/consumers/
+
+CMD ["python", "consumers/limit_orders.py"]
