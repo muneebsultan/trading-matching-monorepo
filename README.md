@@ -1,4 +1,4 @@
-# Real-time order matching platform
+# order matching platform
 
 Monorepo for an event-driven trading pipeline: ingest user actions, apply live order modifications, and run the matching engine (limit, stop, liquidation checks, and related consumers).
 
@@ -6,9 +6,9 @@ Monorepo for an event-driven trading pipeline: ingest user actions, apply live o
 
 | Component | Role |
 |-----------|------|
-| **Producer-useractions** | HTTP API (FastAPI) that accepts user actions and publishes them into the messaging layer for downstream processing. |
-| **RealTime_Modifier** | Consumer service that applies real-time order modifications and keeps state in sync with the rest of the stack. |
-| **RealTime-MatchingEngine** | Core matching and order lifecycle workers: user-action consumption, limit/stop order handling, and scheduled checks (limits, stops, liquidations). |
+| **useractions** | HTTP API (FastAPI) that accepts user actions and publishes them into the messaging layer for downstream processing. |
+| **Modifier** | Consumer service that applies real-time order modifications and keeps state in sync with the rest of the stack. |
+| **MatchingEngine** | Core matching and order lifecycle workers: user-action consumption, limit/stop order handling, and scheduled checks (limits, stops, liquidations). |
 
 Together these services implement the path from **client action → stream → modification → matching and risk checks**.
 
@@ -17,8 +17,8 @@ Together these services implement the path from **client action → stream → m
 ```mermaid
 flowchart LR
   API[Producer-useractions\nFastAPI :8777]
-  MOD[RealTime_Modifier]
-  ME[RealTime-MatchingEngine]
+  MOD[Modifier]
+  ME[MatchingEngine]
 
   API -->|events| BUS[(Kafka / NATS)]
   BUS --> MOD
@@ -39,16 +39,16 @@ flowchart LR
 
 ```
 UAT-MatchingEngine/
-├── Producer-useractions/     # User-action producer API + Docker
-├── RealTime_Modifier/        # Modification consumer + Docker
-└── RealTime-MatchingEngine/  # Matching consumers, producers, NATS pipeline, Docker
+├── useractions/     # User-action producer API + Docker
+├── Modifier/        # Modification consumer + Docker
+└── MatchingEngine/  # Matching consumers, producers, NATS pipeline, Docker
 ```
 
 ## Getting started
 
 Each service is built and run independently with its own `.env` and Compose file.
 
-1. **Producer-useractions**
+1. **useractions**
 
    ```bash
    cd Producer-useractions
@@ -58,18 +58,18 @@ Each service is built and run independently with its own `.env` and Compose file
 
    The API listens on port **8777** by default (see `main.py`).
 
-2. **RealTime_Modifier**
+2. **Modifier**
 
    ```bash
-   cd RealTime_Modifier
+   cd Modifier
    # Create .env
    docker compose up --build
    ```
 
-3. **RealTime-MatchingEngine**
+3. **MatchingEngine**
 
    ```bash
-   cd RealTime-MatchingEngine
+   cd MatchingEngine
    # Create .env
    docker compose up --build
    ```
