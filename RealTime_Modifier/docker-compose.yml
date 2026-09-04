@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  user-action-modification:
+    build: 
+      context: .
+      dockerfile: docker/dockerfile.modification
+    container_name: user-action-modification
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+      - .:/app
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

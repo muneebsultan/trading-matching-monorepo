@@ -1,0 +1,20 @@
+FROM python:3.10
+
+WORKDIR /app
+
+ENV PYTHONPATH=/app:$PYTHONPATH
+
+COPY docker/requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy Core files
+COPY Core /app/Core/
+
+# Copy producer files
+COPY producers /app/producers/
+
+# Copy consumer files
+COPY consumers /app/consumers/
+
+CMD ["python", "producers/check_limit.py"]

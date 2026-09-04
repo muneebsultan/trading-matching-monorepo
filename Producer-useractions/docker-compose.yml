@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  user-action-consumer:
+    build: 
+      context: .
+    container_name: Producer-useraction
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - "8777:8777"
+    env_file:
+      - .env

@@ -1,0 +1,23 @@
+FROM python:3.10
+
+WORKDIR /app
+
+ENV PYTHONPATH=/app:$PYTHONPATH
+
+COPY docker/requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Create logs directory with proper permissions
+RUN mkdir -p /app/logs && \
+    chmod 777 /app/logs
+
+COPY Core /app/Core/
+
+COPY consumer /app/consumer/
+
+COPY Orchestration /app/Orchestration/
+
+# CMD ["python", "consumer/modification.py"]
+CMD ["python", "-u", "consumer/modification.py"]
+

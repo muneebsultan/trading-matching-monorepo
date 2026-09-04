@@ -1,0 +1,34 @@
+# Ignore all .env files (for security)
+.env
+*.env
+
+# Ignore virtual environments
+myenv/
+data-env/
+Kafka-env/
+Realtime-data-pipeline\venv
+
+# Ignore system-generated files
+__pycache__/
+*.pyc
+*.pyo
+*.log
+
+# Ignore Docker-related files (optional)
+*.dockerignore
+
+# Ignore VSCode workspace settings (optional)
+.vscode/
+
+
+# Ignore compiled Python files
+*.egg-info/
+*.sqlite3
+
+#.py
+Realtime-MatchingEngine/.env
+RealTime_Modifier/.env
+Producer-useractions/.env
+
+Data-streaming
+
